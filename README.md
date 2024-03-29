@@ -5,7 +5,7 @@
 ![image](https://github.com/HederAlves/arena-genius/assets/83372052/cec712b9-a67d-44ef-9ba5-41b38e4778ad)
 
 ![Badge](https://img.shields.io/badge/Developer-HederAlves-%237159c1?style=for-the-badge&logo=ghost)
-![Badge under development](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
+![Badge under development](http://img.shields.io/static/v1?label=STATUS&message=UNDER%20DEVELOPMENT&color=GREEN&style=for-the-badge)
 
 </div>
 
