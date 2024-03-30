@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <button @click="startGame" v-if="!gameData.isGameRunning">Start Game</button>
+    <button @click="startGame">Start Game</button>
   </div>
   <main class="layout">
     <section class="container-control">
@@ -25,6 +25,9 @@ export default {
   },
   methods: {
     startGame() {
+      if (this.gameData.isGameRunning) {
+        this.resetGame();
+      }
       const updatedData = { isGameRunning: true, round: 1 };
       this.updateGameData(updatedData);
       this.playRound();
@@ -103,6 +106,15 @@ export default {
 </script>
 
 <style scoped>
+.layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('/favicon.png');
+  background-size: 150px 150px;
+}
+
 .panel {
   padding: 10px;
   position: absolute;
@@ -114,14 +126,6 @@ export default {
   box-shadow: 0px 10px 10px 10px black;
 }
 
-.layout {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url('/favicon.png');
-  background-size: 150px 150px;
-}
 
 .container-control {
   border: solid 10px white;
