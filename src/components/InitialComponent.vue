@@ -1,21 +1,37 @@
 <template>
-  <div class="panel">
-    <button @click="startGame">Start Game</button>
+  <div>
+    <div class="panel">
+      <BaseButton :buttonText='"Start Game"' @click="startGame">{{ gameData.isGameRunning ? 'Restart Game' : 'Start Game'
+        }}</BaseButton>
+    </div>
+    <main class="layout">
+      <section class="container-control">
+        <button class="control-button" v-for="(name, index) in gameData.ButtonName" :key="index"
+          @click="handleButtonClick(gameData.colors[index])" :style="buttonStyle(index)">
+        </button>
+      </section>
+    </main>
+  
+    <BaseModal :showModal="gameOverModal.show" :titleModal="'Game Over'" :textModal="'Your Score:'"
+      @close="closeGameOverModal" />
+  
   </div>
-  <main class="layout">
-    <section class="container-control">
-      <button class="control-button" v-for="(name, index) in gameData.ButtonName" :key="index"
-        @click="handleButtonClick(gameData.colors[index])" :style="buttonStyle(index)">
-      </button>
-    </section>
-  </main>
 </template>
 
 <script>
+import BaseModal from "../components/molecules/BaseModal.vue";
+import BaseButton from "../components/atoms/BaseButton.vue";
+
 export default {
+  components: {
+    BaseModal, BaseButton
+  },
   data() {
     return {
-      selectedColorIndex: null
+      selectedColorIndex: null,
+      gameOverModal: {
+        show: false,
+      }
     };
   },
   computed: {
@@ -66,8 +82,7 @@ export default {
       this.selectedColorIndex = this.gameData.colors.indexOf(color);
 
       if (color !== correctColor) {
-        alert('Game Over!');
-        this.resetGame();
+        this.showGameOverModal();
         return;
       }
 
@@ -100,6 +115,12 @@ export default {
 
     updateGameData(payload) {
       this.$store.dispatch('updateGameData', payload);
+    },
+    showGameOverModal() {
+      this.gameOverModal.show = true;
+    },
+    closeGameOverModal() {
+      this.gameOverModal.show = false;
     }
   }
 };
@@ -125,7 +146,6 @@ export default {
   border-right: solid 10px white;
   box-shadow: 0px 10px 10px 10px black;
 }
-
 
 .container-control {
   border: solid 10px white;
