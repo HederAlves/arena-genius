@@ -13,7 +13,7 @@
     </main>
   
     <BaseModal :showModal="gameOverModal.show" :titleModal="'Game Over'" :textModal="'Your Score:'"
-      @close="closeGameOverModal" />
+      :content="sequenceLength() -1" @close="closeGameOverModal" />
   
   </div>
 </template>
@@ -31,6 +31,7 @@ export default {
       selectedColorIndex: null,
       gameOverModal: {
         show: false,
+        sequenceLength: 0
       }
     };
   },
@@ -118,7 +119,12 @@ export default {
     },
     showGameOverModal() {
       this.gameOverModal.show = true;
+      this.gameOverModal.sequenceLength = this.sequenceLength();
     },
+    sequenceLength() {
+      return this.gameData.sequence.length;
+    },
+
     closeGameOverModal() {
       this.gameOverModal.show = false;
     }
