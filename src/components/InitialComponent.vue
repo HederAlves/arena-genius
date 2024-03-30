@@ -5,8 +5,7 @@
   <main class="layout">
     <section class="container-control">
       <button class="control-button" v-for="(name, index) in gameData.ButtonName" :key="index"
-        @click="handleButtonClick(gameData.colors[index])"
-        :style="{ backgroundColor: gameData.flashColor === gameData.colors[index] ? gameData.colors[index] : gameData.colorsInitials[index] }">
+        @click="handleButtonClick(gameData.colors[index])" :style="buttonStyle(index)">
       </button>
     </section>
   </main>
@@ -14,6 +13,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      selectedColorIndex: null
+    };
+  },
   computed: {
     gameData() {
       return this.$store.state.gameData;
@@ -22,12 +26,13 @@ export default {
   methods: {
     startGame() {
       const updatedData = { isGameRunning: true, round: 1 };
-      this.$store.dispatch('updateGameData', updatedData);
+      this.updateGameData(updatedData);
       this.playRound();
     },
     playRound() {
-      const updatedData = { sequence: [...this.gameData.sequence, this.gameData.colors[Math.floor(Math.random() * this.gameData.colors.length)]] };
-      this.$store.dispatch('updateGameData', updatedData);
+      const colorIndex = Math.floor(Math.random() * this.gameData.colors.length);
+      const updatedData = { sequence: [...this.gameData.sequence, this.gameData.colors[colorIndex]] };
+      this.updateGameData(updatedData);
       this.playSequence();
     },
     playSequence() {
@@ -35,13 +40,10 @@ export default {
 
       const playNext = () => {
         const color = this.gameData.sequence[index];
-        const updatedData = { flashColor: color };
-        this.$store.dispatch('updateGameData', updatedData);
+        this.updateGameData({ flashColor: color });
 
         setTimeout(() => {
-          const updatedData = { flashColor: null };
-          this.$store.dispatch('updateGameData', updatedData);
-
+          this.updateGameData({ flashColor: null });
           index++;
 
           if (index < this.gameData.sequence.length) {
@@ -57,8 +59,8 @@ export default {
 
       const index = this.gameData.playerSequence.length;
       const correctColor = this.gameData.sequence[index];
-      const updatedData = { playerSequence: [...this.gameData.playerSequence, color] };
-      this.$store.dispatch('updateGameData', updatedData);
+      this.updateGameData({ playerSequence: [...this.gameData.playerSequence, color] });
+      this.selectedColorIndex = this.gameData.colors.indexOf(color);
 
       if (color !== correctColor) {
         alert('Game Over!');
@@ -67,16 +69,34 @@ export default {
       }
 
       if (this.gameData.playerSequence.length === this.gameData.sequence.length) {
-        const updatedData = { playerSequence: [], round: this.gameData.round + 1 };
-        this.$store.dispatch('updateGameData', updatedData);
+        this.updateGameData({ playerSequence: [], round: this.gameData.round + 1 });
         setTimeout(() => {
           this.playRound();
         }, 1000);
       }
+      setTimeout(() => {
+        this.selectedColorIndex = null;
+      }, 500);
     },
     resetGame() {
       const updatedData = { sequence: [], playerSequence: [], round: 0, isGameRunning: false };
-      this.$store.dispatch('updateGameData', updatedData);
+      this.updateGameData(updatedData);
+      this.selectedColorIndex = null;
+    },
+    buttonStyle(index) {
+      const color = this.gameData.colors[index];
+      const initialColor = this.gameData.colorsInitials[index];
+
+      let backgroundColor = initialColor;
+      if (this.gameData.flashColor === color || this.selectedColorIndex === index) {
+        backgroundColor = color;
+      }
+
+      return { backgroundColor };
+    },
+
+    updateGameData(payload) {
+      this.$store.dispatch('updateGameData', payload);
     }
   }
 };
@@ -119,9 +139,13 @@ export default {
 
 .control-button {
   color: #FFFFFF;
-  border: none;
   width: 18vw;
   height: 34vh;
   border-radius: 100%;
+  border: solid 2px #FFFFFF;
+}
+
+.control-button:hover {
+  cursor: grab;
 }
 </style>
