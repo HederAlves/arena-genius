@@ -1,11 +1,11 @@
 <template>
-  <InitialComponent />
+  <VideoGame />
 </template>
 
 <script>
-import InitialComponent from "./components/page/VideoGame.vue"
+import VideoGame from "./components/page/VideoGame.vue"
 export default {
-  components: { InitialComponent },
-  name: "App"
+  name: "App",
+  components: { VideoGame }
 }
 </script>
