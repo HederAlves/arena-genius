@@ -7,15 +7,14 @@
     </div>
     <main class="layout">
       <section class="container-control">
-        <button class="control-button" v-for="(name, index) in gameData.ButtonName" :key="index"
-          @click="handleButtonClick(gameData.colors[index])" :style="buttonStyle(index)">
+        <button class="control-button" v-for="(color, index) in gameData.colors" :key="index"
+          @click="handleButtonClick(color, gameData.ButtonName[index])" :style="buttonStyle(index)">
         </button>
       </section>
     </main>
   
     <BaseModal :showModal="gameOverModal.show" :titleModal="'Game Over'" :textModal="'Your Score:'"
-      :content="sequenceLength() -1" @close="closeGameOverModal" />
-  
+      :content="(sequenceLength() - 1).toString()" @close="closeGameOverModal" />
   </div>
 </template>
 
@@ -25,9 +24,11 @@ import BaseModal from "../molecules/BaseModal.vue";
 import BaseButton from "../atoms/BaseButton.vue";
 
 export default {
+  name: "VideoGame",
   components: {
     BaseRules,
-    BaseModal, BaseButton
+    BaseModal,
+    BaseButton
   },
   data() {
     return {
@@ -63,7 +64,13 @@ export default {
 
       const playNext = () => {
         const color = this.gameData.sequence[index];
+        const colorIndex = this.gameData.colors.indexOf(color);
+        const audioName = this.gameData.ButtonName[colorIndex];
         this.updateGameData({ flashColor: color });
+
+        const audioElement = new Audio(`/${audioName}.mp3`);
+        audioElement.currentTime = 0;
+        audioElement.play();
 
         setTimeout(() => {
           this.updateGameData({ flashColor: null });
@@ -75,15 +82,21 @@ export default {
         }, 500);
       };
 
+
       playNext();
     },
-    handleButtonClick(color) {
+
+    handleButtonClick(color, name) {
       if (!this.gameData.isGameRunning) return;
 
       const index = this.gameData.playerSequence.length;
       const correctColor = this.gameData.sequence[index];
       this.updateGameData({ playerSequence: [...this.gameData.playerSequence, color] });
       this.selectedColorIndex = this.gameData.colors.indexOf(color);
+
+      const audioElement = new Audio(`/${name}.mp3`);
+      audioElement.currentTime = 0;
+      audioElement.play();
 
       if (color !== correctColor) {
         this.showGameOverModal();
