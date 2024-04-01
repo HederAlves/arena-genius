@@ -60,5 +60,3 @@ Date: 01 abr 2024 - launch 🚀
 ### User interaction
 
 Now the user can count effect sounds when playing, improving their experience
-
----
