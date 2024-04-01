@@ -1,6 +1,6 @@
 # Changelog
 
-### Version: 0.0.0 => 0.1.0
+## Version: 0.0.0 => 0.1.0
 
 Date: 30 mar 2024 - launch 🚀
 
@@ -19,13 +19,15 @@ Date: 30 mar 2024 - launch 🚀
 
 - Project architecture
 
-## User interaction
+### User interaction
 
 This version is now available for players to enjoy.
 
 We already have control to play, animations of lights and screens for greater intuitiveness, score management and end of game with the result of the longest sequence
 
-### Version: 0.1.0 => 0.1.1
+---
+
+## Version: 0.1.0 => 0.1.1
 
 Date: 31 mar 2024 - Improvements to the current version 🛠️
 
@@ -35,6 +37,6 @@ Date: 31 mar 2024 - Improvements to the current version 🛠️
 - improved component name
 - Improved application architecture
 
-## User interaction
+### User interaction
 
 The user now has the rules of the game to know how to play
