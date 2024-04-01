@@ -40,3 +40,25 @@ Date: 31 mar 2024 - Improvements to the current version 🛠️
 ### User interaction
 
 The user now has the rules of the game to know how to play
+
+---
+
+## Version: 0.1.1 => 0.2.0
+
+Date: 01 abr 2024 - launch 🚀
+
+### Feat:
+
+- E2e test of game play and reset game was created
+- Effect sounds have been added to the buttons
+- Organization of documentation
+
+### Added:
+
+- Cypress
+
+### User interaction
+
+Now the user can count effect sounds when playing, improving their experience
+
+---
