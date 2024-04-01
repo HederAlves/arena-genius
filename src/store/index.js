@@ -10,7 +10,13 @@ export default createStore({
       playerSequence: [],
       round: 0,
       isGameRunning: false,
-      flashColor: null
+      flashColor: null,
+      audioSources: {
+        '#00FF00': "../../public/green.mp3",
+        '#ff0000': "../../public/red.mp3",
+        '#FFFF00': "../../public/yellow.mp3",
+        '#00BFFF': "../../public/blue.mp3"
+      },
     }
   },
   mutations: {
