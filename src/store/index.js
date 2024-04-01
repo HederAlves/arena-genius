@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     gameData: {
-      ButtonName: ['green', 'red', 'yellow', 'blue'],
+      buttonName: ['green', 'red', 'yellow', 'blue'],
       colors: ['#00FF00', '#ff0000', '#FFFF00', '#00BFFF'],
       colorsInitials: ['#088901', '#8d0202', '#b7bb00', '#031e83'],
       sequence: [],
