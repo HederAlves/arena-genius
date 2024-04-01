@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import InitialComponent from './components/InitialComponent.vue'
+import InitialComponent from "./components/page/VideoGame.vue"
 export default {
   components: { InitialComponent },
   name: "App"
