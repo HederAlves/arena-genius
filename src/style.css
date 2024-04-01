@@ -12,9 +12,10 @@
 ul[role='list'],
 ol[role='list'] {
   list-style: none;
+  text-decoration: none;
 }
 
-li {
+ul, li {
   text-decoration:none ;
 }
 

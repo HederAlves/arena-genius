@@ -3,6 +3,7 @@
     <div class="panel">
       <BaseButton :buttonText='"Start Game"' @click="startGame">{{ gameData.isGameRunning ? 'Restart Game' : 'Start Game'
         }}</BaseButton>
+      <BaseRules />
     </div>
     <main class="layout">
       <section class="container-control">
@@ -19,11 +20,13 @@
 </template>
 
 <script>
-import BaseModal from "../components/molecules/BaseModal.vue";
-import BaseButton from "../components/atoms/BaseButton.vue";
+import BaseRules from "../atoms/BaseRules.vue";
+import BaseModal from "../molecules/BaseModal.vue";
+import BaseButton from "../atoms/BaseButton.vue";
 
 export default {
   components: {
+    BaseRules,
     BaseModal, BaseButton
   },
   data() {
@@ -145,7 +148,7 @@ export default {
 .panel {
   padding: 10px;
   position: absolute;
-  height: 300px;
+  height: 400px;
   width: 250px;
   background: #000000;
   border-bottom: solid 10px white;
